@@ -4,11 +4,11 @@
   "description": "",
   "main": "public/index.html",
   "scripts": {
-    "cw": "parcel watch ./client/index.html",
+    "cw": "rm -rf public && parcel watch ./client/index.html",
     "cs": "parcel serve ./client/index.html",
-    "cb": "parcel build ./client/index.html",
+    "cb": "rm -rf public && parcel build ./client/index.html",
     "sw": "nodemon server/index.ts -w",
-    "sb": "tsc",
+    "sb": "rm -rf dist && tsc",
     "build": "yarn cb && yarn sb",
     "start": "node dist/index.js"
   },

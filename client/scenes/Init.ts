@@ -1,13 +1,15 @@
-import { Entrance } from "./Entrance"
+import { EntranceKey } from "./Entrance"
+
+export const InitKey = "Init" as const
 
 export class Init extends Phaser.Scene {
   constructor() {
     super({
-      key: "Init",
+      key: InitKey,
     })
   }
 
   create() {
-    this.scene.start(Entrance.name)
+    this.scene.start(EntranceKey)
   }
 }

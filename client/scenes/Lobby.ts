@@ -1,7 +1,9 @@
+export const LobbyKey = "Lobby" as const
+
 export class Lobby extends Phaser.Scene {
   constructor() {
     super({
-      key: "Lobby",
+      key: LobbyKey,
     })
   }
 

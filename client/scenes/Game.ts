@@ -1,7 +1,8 @@
+export const GameKey = "Game" as const
 export class Game extends Phaser.Scene {
   constructor() {
     super({
-      key: "Game",
+      key: GameKey,
     })
   }
 
