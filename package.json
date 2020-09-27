@@ -10,7 +10,7 @@
     "sw": "nodemon server/index.ts -w",
     "sb": "tsc",
     "build": "yarn cb && yarn sb",
-    "start": "node server/index.js"
+    "start": "node dist/index.js"
   },
   "keywords": [
     "phaser",
