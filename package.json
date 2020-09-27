@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "chancho-va",
   "version": "1.0.0",
   "description": "",
   "main": "public/index.html",
@@ -7,10 +7,17 @@
     "cw": "parcel watch ./client/index.html",
     "cs": "parcel serve ./client/index.html",
     "cb": "parcel build ./client/index.html",
-    "sw": "nodemon server/index.ts -w"
+    "sw": "nodemon server/index.ts -w",
+    "sb": "tsc",
+    "build": "yarn cb && yarn sb",
+    "start": "node server/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "phaser",
+    "web",
+    "game"
+  ],
+  "author": "Andrian Mauricio",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
