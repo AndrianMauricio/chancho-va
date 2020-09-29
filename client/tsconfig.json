@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "strictPropertyInitialization": false
+  }
+}

@@ -1,0 +1,5 @@
+export const ACTIONS = {
+  CREATE_ROOM: "CREATE_ROOM",
+  JOIN_ROOM: "JOIN_ROOM",
+  ROOM_NOT_FOUND: "ROOM_NOT_FOUND",
+} as const
