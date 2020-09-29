@@ -2,15 +2,15 @@
   "name": "chancho-va",
   "version": "1.0.0",
   "description": "",
-  "main": "public/index.html",
+  "main": "dist/public/index.html",
   "scripts": {
-    "copyfiles": "copyfiles -V -E -e \"**/*.ts\" -u 1 \"client/assets/**/*.*\" public",
+    "copyfiles": "copyfiles -V -E -e \"**/*.ts\" -u 1 \"client/assets/**/*.*\" dist/public",
     "cw": "rm -rf public && yarn copyfiles && parcel watch ./client/index.html",
     "cs": "parcel serve ./client/index.html",
-    "cb": "rm -rf public && yarn copyfiles && parcel build ./client/index.html",
+    "cb": "yarn copyfiles && parcel build ./client/index.html",
     "sw": "nodemon server/index.ts -w",
-    "sb": "rm -rf dist && tsc",
-    "build": "yarn cb && yarn sb",
+    "sb": "tsc",
+    "build": "rm -rf dist && yarn cb && yarn sb",
     "start": "node dist/server/index.js",
     "prettier": "prettier client/**/*.* server/**/*.* shared/**/*.* -w"
   },
@@ -39,7 +39,7 @@
     "copyfiles": "^2.3.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
-    "parcel": "^2.0.0-beta.1",
+    "parcel": "^2.0.0-nightly.410",
     "prettier": "^2.1.2"
   },
   "husky": {
