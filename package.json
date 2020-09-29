@@ -11,7 +11,7 @@
     "sw": "nodemon server/index.ts -w",
     "sb": "rm -rf dist && tsc",
     "build": "yarn cb && yarn sb",
-    "start": "node dist/index.js",
+    "start": "node dist/server/index.js",
     "prettier": "prettier client/**/*.* server/**/*.* shared/**/*.* -w"
   },
   "keywords": [
