@@ -49,5 +49,6 @@
   },
   "lint-staged": {
     "*.{ts,html}": "prettier --write"
-  }
+  },
+  "browserslist": "last 2 years"
 }
