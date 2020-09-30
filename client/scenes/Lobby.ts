@@ -1,4 +1,4 @@
-import { Room } from "../../shared"
+import { Room, Socket } from "../../shared"
 
 export const LobbyKey = "Lobby" as const
 export type LobbyInit = {
@@ -37,5 +37,17 @@ export class Lobby extends Phaser.Scene {
     this.add
       .text(width / 2, height / 2, this.room.players[this.socket.id].name)
       .setOrigin(0.5, 0.5)
+
+    this.socket.emit("new-player", {
+      player: this.room.players[this.socket.id],
+      roomID: this.room.id,
+    } as Socket.Client.NewPlayerEmit)
+
+    this.socket.on(
+      "new-player",
+      ({ playerName }: Socket.Server.NewPlayerEmit) => {
+        console.log("Se ha unido", playerName)
+      },
+    )
   }
 }

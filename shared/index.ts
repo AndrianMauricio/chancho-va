@@ -1,4 +1,5 @@
 export * as API from "./API"
+export * as Socket from "./Socket"
 export * from "./Room"
 export * from "./constants"
 export * from "./Player"

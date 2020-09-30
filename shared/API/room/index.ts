@@ -6,6 +6,7 @@ export type GetResponse = {
 }
 
 export type GetParams = { room: string }
+export type PutParams = { room: string }
 
 export type PostRequest = {
   player: {
@@ -14,6 +15,17 @@ export type PostRequest = {
   }
 }
 
+export type PutRequest = {
+  player: {
+    id: string
+    name: string
+  }
+}
+
 export type PostResponse = {
+  room: Room
+}
+
+export type PutResponse = {
   room: Room
 }

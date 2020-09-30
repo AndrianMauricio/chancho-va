@@ -21,12 +21,12 @@ export function useRoomAPI(app: Express) {
     const room = new Room(admin)
     rooms[room.id] = room
 
-    res.send({
-      room: rooms[room.id],
-    })
+    console.log("Se creó una nueva sala:", room.id)
+
+    res.send({ room: rooms[room.id] } as API.Room.PostResponse)
   })
 
-  app.put<API.Room.GetParams, unknown, API.Room.PostRequest>(
+  app.put<API.Room.PutParams, unknown, API.Room.PutRequest>(
     `${PATH}/:room`,
     (req, res) => {
       const { params, body } = req
@@ -38,13 +38,11 @@ export function useRoomAPI(app: Express) {
 
         room.addGuest(player)
 
-        res.send({
-          room,
-        })
+        console.log(`Se unió el jugador ${player.name} a la sala ${room.id}`)
+
+        res.send({ room } as API.Room.PutResponse)
       } else {
-        res.send({
-          action: ACTIONS.ROOM_NOT_FOUND,
-        } as API.Room.GetResponse)
+        res.status(404).send(`Room not found: ${params.room}`)
       }
     },
   )
