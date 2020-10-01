@@ -1,6 +1,6 @@
-import { Player } from "../Player"
+import { SharedPlayer } from "../Player"
 
 export type NewPlayerEmit = {
-  player: Player
+  player: SharedPlayer
   roomID: string
 }

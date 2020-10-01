@@ -1,19 +1,23 @@
 import { API } from "../../shared"
 import { Player } from "./Player"
+import cuid from "cuid"
 
 export class Room {
   /**
    * Room identifier
    */
   id: string
+
   /**
    * Admin player identifier
    */
   adminID: string
+
   /**
    * List of identifiers of the guest players
    */
   guestsIDs: string[]
+
   /**
    * Dictionary of all the players in the room.
    *
@@ -99,11 +103,13 @@ export class Room {
     adminName: string,
   ): Promise<Room | undefined> {
     try {
+      const player = new Player({ id: adminID, name: adminName, isAdmin: true })
+
       const res = await window.fetch("/api/room", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          player: { id: adminID, name: adminName },
+          player,
         } as API.Room.PostRequest),
       })
 

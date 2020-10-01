@@ -1,5 +1,5 @@
 import { Express } from "express"
-import { ACTIONS, API, Player, RoomInServer } from "../../shared"
+import { API, SharedPlayer, RoomInServer } from "../../shared"
 
 export const rooms: Record<string, RoomInServer> = {}
 
@@ -15,13 +15,23 @@ export function useRoomAPI(app: Express) {
   app.post<unknown, unknown, API.Room.PostRequest>(PATH, (req, res) => {
     const { player } = req.body
 
-    const admin = new Player(player.id, player.name)
+    const admin = new SharedPlayer({
+      id: player.id,
+      name: player.name,
+      isAdmin: true,
+      sessionID: player.sessionID,
+    })
+
     admin.setAdmin()
 
     const room = new RoomInServer(admin)
+
     rooms[room.id] = room
 
-    console.log("Se creó una nueva sala:", room.id)
+    console.log("Se creó una nueva sala:", {
+      roomID: room.id,
+      player: player.name,
+    })
 
     res.send({ room: rooms[room.id] } as API.Room.PostResponse)
   })
@@ -34,11 +44,19 @@ export function useRoomAPI(app: Express) {
       const room = rooms[params.room]
 
       if (room != null) {
-        const player = new Player(body.player.id, body.player.name)
+        const player = new SharedPlayer({
+          id: body.player.id,
+          name: body.player.name,
+          isAdmin: false,
+          sessionID: body.player.sessionID,
+        })
 
         room.addGuest(player)
 
-        console.log(`Se unió el jugador ${player.name} a la sala ${room.id}`)
+        console.log(`Se unió un jugador a la sala:`, {
+          roomID: room.id,
+          player: player.name,
+        })
 
         res.send({ room } as API.Room.PutResponse)
       } else {
