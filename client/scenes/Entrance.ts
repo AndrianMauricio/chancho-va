@@ -3,6 +3,8 @@ import { assets } from "../assets"
 import { Room } from "../entities/Room"
 import { LobbyInit, LobbyKey } from "./Lobby"
 import Phaser from "phaser"
+import { Player } from "../entities/Player"
+import { Socket } from "../../shared"
 
 export const EntranceKey = "Entrance" as const
 
@@ -29,7 +31,14 @@ export class Entrance extends Phaser.Scene {
 
     if (error) this.rendeError("No se encontró la sala")
 
-    this.socket = io()
+    this.socket = io({ query: { sessionID: Player.sessionID } })
+
+    this.socket.on(
+      "player_returned",
+      ({ room: _room }: Socket.Server.PlayerReturnedEmit) => {
+        this.goToLobby(new Room(_room))
+      },
+    )
   }
 
   create() {
@@ -62,7 +71,7 @@ export class Entrance extends Phaser.Scene {
       if (inputName.value == null || inputName.value === "") return
 
       if (this.room != null) {
-        this.room.joinRoom(this.socket.id, inputName.value).then(room => {
+        this.room.joinRoom(Player.sessionID, inputName.value).then(room => {
           if (room == null) {
             console.error(
               "Por alguna extraña razón room está indefinido o es falso.",
@@ -73,7 +82,7 @@ export class Entrance extends Phaser.Scene {
           this.goToLobby(room)
         })
       } else {
-        Room.createRoom(this.socket.id, inputName.value).then(room => {
+        Room.createRoom(Player.sessionID, inputName.value).then(room => {
           if (room == null) {
             console.error("Por alguna extraña razón room está indefinido.")
             return

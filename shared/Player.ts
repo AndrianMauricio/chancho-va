@@ -14,21 +14,10 @@ export class SharedPlayer {
    */
   isAdmin: boolean
 
-  /**
-   * Session ID of the player
-   */
-  sessionID: string
-
-  constructor(data: {
-    id: string
-    name: string
-    isAdmin: boolean
-    sessionID: string
-  }) {
+  constructor(data: { id: string; name: string; isAdmin: boolean }) {
     this.id = data.id
     this.name = data.name
     this.isAdmin = data.isAdmin
-    this.sessionID = data.sessionID
   }
 
   /**

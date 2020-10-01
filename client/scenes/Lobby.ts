@@ -1,8 +1,10 @@
 import { Socket } from "../../shared"
 import { Room } from "../entities/Room"
 import Phaser from "phaser"
+import { Player } from "../entities/Player"
 
 export const LobbyKey = "Lobby" as const
+
 export type LobbyInit = {
   room: Room
   socket: SocketIOClient.Socket
@@ -13,9 +15,7 @@ export class Lobby extends Phaser.Scene {
   room: Room
 
   constructor() {
-    super({
-      key: LobbyKey,
-    })
+    super({ key: LobbyKey })
   }
 
   init(data: LobbyInit) {
@@ -37,11 +37,11 @@ export class Lobby extends Phaser.Scene {
     const { width, height } = this.sys.canvas
 
     this.add
-      .text(width / 2, height / 2, this.room.players[this.socket.id].name)
+      .text(width / 2, height / 2, this.room.players[Player.sessionID].name)
       .setOrigin(0.5, 0.5)
 
     this.socket.emit("new-player", {
-      player: this.room.players[this.socket.id],
+      player: this.room.players[Player.sessionID],
       roomID: this.room.id,
     } as Socket.Client.NewPlayerEmit)
 

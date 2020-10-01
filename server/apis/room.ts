@@ -19,7 +19,6 @@ export function useRoomAPI(app: Express) {
       id: player.id,
       name: player.name,
       isAdmin: true,
-      sessionID: player.sessionID,
     })
 
     admin.setAdmin()
@@ -48,7 +47,6 @@ export function useRoomAPI(app: Express) {
           id: body.player.id,
           name: body.player.name,
           isAdmin: false,
-          sessionID: body.player.sessionID,
         })
 
         room.addGuest(player)

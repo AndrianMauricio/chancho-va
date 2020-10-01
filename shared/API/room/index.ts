@@ -12,7 +12,6 @@ export type PostRequest = {
   player: {
     id: string
     name: string
-    sessionID: string
   }
 }
 
@@ -20,7 +19,6 @@ export type PutRequest = {
   player: {
     id: string
     name: string
-    sessionID: string
   }
 }
 

@@ -1,6 +1,5 @@
 import { API } from "../../shared"
 import { Player } from "./Player"
-import cuid from "cuid"
 
 export class Room {
   /**

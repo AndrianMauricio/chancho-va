@@ -3,8 +3,8 @@ import { createServer } from "http"
 import socketIO from "socket.io"
 import path from "path"
 import bodyParser from "body-parser"
-import { useRoomAPI } from "./apis/room"
-import { Socket } from "../shared"
+import { rooms, useRoomAPI } from "./apis/room"
+import { RoomInServer, SharedPlayer, Socket } from "../shared"
 
 const app = express()
 const server = createServer(app)
@@ -27,6 +27,23 @@ app.get("*", (_, res) => {
 
 io.on("connect", socket => {
   console.log("Nuevo jugador:", socket.id)
+
+  const { sessionID } = socket.request._query
+
+  let room: RoomInServer | undefined
+
+  roomLoop: for (const [, _room] of Object.entries(rooms)) {
+    for (const [, _player] of Object.entries(_room.players)) {
+      if (_player.id === sessionID) {
+        room = _room
+        break roomLoop
+      }
+    }
+  }
+
+  if (room != null) {
+    socket.emit("player_returned", { room } as Socket.Server.PlayerReturnedEmit)
+  }
 
   socket.on("new-player", ({ player, roomID }: Socket.Client.NewPlayerEmit) => {
     socket.join(roomID)
