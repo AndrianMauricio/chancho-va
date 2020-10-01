@@ -26,24 +26,20 @@ export class Entrance extends Phaser.Scene {
   init({ room, error }: EntranceInit) {
     this.room = room
 
-    const { width, height } = this.sys.canvas
-
-    if (error) {
-      this.add
-        .text(width / 2, height / 2 - 200, "No se encontró la sala")
-        .setOrigin(0.5, 0.5)
-        .setColor("red")
-    }
-
-    this.actionText =
-      room == null
-        ? "Crear sala"
-        : `Unirse a la sala de ${room.players[room.admin].name}`
+    if (error) this.rendeError("No se encontró la sala")
 
     this.socket = io()
   }
 
   create() {
+    this.renderForm()
+  }
+
+  rendeError(errorMessage: string, x: number = 0, y: number = 0) {
+    return this.add.text(x, y, errorMessage).setColor("red")
+  }
+
+  renderForm() {
     const { width, height } = this.sys.canvas
 
     const html = this.add
@@ -54,7 +50,10 @@ export class Entrance extends Phaser.Scene {
     const actionButton = html.getChildByID("action-button") as HTMLButtonElement
     const inputName = html.getChildByID("input-name") as HTMLInputElement
 
-    actionButton.innerText = this.actionText
+    actionButton.innerText =
+      this.room == null
+        ? "Crear sala"
+        : `Unirse a la sala de ${this.room.players[this.room.admin].name}`
 
     form.addEventListener("submit", e => {
       e.preventDefault()
