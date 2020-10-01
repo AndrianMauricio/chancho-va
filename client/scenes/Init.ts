@@ -1,5 +1,6 @@
 import { Room } from "../helpers/Room"
 import { EntranceInit, EntranceKey } from "./Entrance"
+import Phaser from "phaser"
 
 export const InitKey = "Init" as const
 

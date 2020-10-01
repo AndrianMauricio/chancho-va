@@ -1,5 +1,6 @@
 import { Socket } from "../../shared"
 import { Room } from "../helpers/Room"
+import Phaser from "phaser"
 
 export const LobbyKey = "Lobby" as const
 export type LobbyInit = {
@@ -21,7 +22,7 @@ export class Lobby extends Phaser.Scene {
     this.room = data.room
     this.socket = data.socket
 
-    const pageTitle = `Sala de ${data.room.players[data.room.admin].name}`
+    const pageTitle = `Sala de ${data.room.players[data.room.adminID].name}`
 
     window.history.replaceState(
       undefined,

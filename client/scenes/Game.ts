@@ -1,3 +1,5 @@
+import Phaser from "phaser"
+
 export const GameKey = "Game" as const
 export class Game extends Phaser.Scene {
   constructor() {

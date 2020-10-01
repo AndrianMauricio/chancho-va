@@ -2,6 +2,7 @@ import io from "socket.io-client"
 import { assets } from "../assets"
 import { Room } from "../helpers/Room"
 import { LobbyInit, LobbyKey } from "./Lobby"
+import Phaser from "phaser"
 
 export const EntranceKey = "Entrance" as const
 
@@ -53,7 +54,7 @@ export class Entrance extends Phaser.Scene {
     actionButton.innerText =
       this.room == null
         ? "Crear sala"
-        : `Unirse a la sala de ${this.room.players[this.room.admin].name}`
+        : `Unirse a la sala de ${this.room.players[this.room.adminID].name}`
 
     form.addEventListener("submit", e => {
       e.preventDefault()

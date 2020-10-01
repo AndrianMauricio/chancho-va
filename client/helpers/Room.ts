@@ -2,9 +2,25 @@ import { API } from "../../shared"
 import { Player } from "./Player"
 
 export class Room {
+  /**
+   * Room identifier
+   */
   id: string
-  admin: string
-  guests: string[]
+  /**
+   * Admin player identifier
+   */
+  adminID: string
+  /**
+   * List of identifiers of the guest players
+   */
+  guestsIDs: string[]
+  /**
+   * Dictionary of all the players in the room.
+   *
+   * - Key: Player identifier
+   *
+   * - Value: Player
+   */
   players: Record<string, Player>
 
   constructor(data: {
@@ -14,9 +30,25 @@ export class Room {
     players: Record<string, Player>
   }) {
     this.id = data.id
-    this.admin = data.admin
-    this.guests = data.guests
+    this.adminID = data.admin
+    this.guestsIDs = data.guests
     this.players = data.players
+  }
+
+  /**
+   * Returns a Player
+   *
+   * @param playerID Player identifier
+   */
+  getPlayer(playerID: string): Player | undefined {
+    return this.players[playerID]
+  }
+
+  /**
+   * Administrator of the room
+   */
+  get admin(): Player {
+    return this.players[this.adminID]
   }
 
   /**
@@ -46,7 +78,7 @@ export class Room {
       if (res.status === 200) {
         const result = (await res.json()) as API.Room.PutResponse
 
-        this.guests.push(playerID)
+        this.guestsIDs.push(playerID)
         this.players[playerID] = result.room.players[playerID]
 
         return this
