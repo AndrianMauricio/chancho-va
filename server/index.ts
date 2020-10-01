@@ -31,7 +31,7 @@ io.on("connect", socket => {
   socket.on("new-player", ({ player, roomID }: Socket.Client.NewPlayerEmit) => {
     socket.join(roomID)
 
-    io.to(roomID).emit("new-player", {
+    socket.to(roomID).emit("new-player", {
       playerName: player.name,
     } as Socket.Server.NewPlayerEmit)
   })

@@ -3,6 +3,8 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "strict": true,
-    "strictPropertyInitialization": false
-  }
+    "strictPropertyInitialization": false,
+    "noEmit": true
+  },
+  "files": ["./index.ts"]
 }

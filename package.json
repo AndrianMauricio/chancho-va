@@ -18,7 +18,8 @@
     "sb": "tsc",
     "build": "rm -rf dist && yarn cb && yarn sb",
     "start": "node dist/server/index.js",
-    "prettier": "prettier client/**/*.* server/**/*.* shared/**/*.* -w"
+    "prettier": "prettier client/**/*.* server/**/*.* shared/**/*.* -w",
+    "typecheck": "tsc -p client && tsc --noEmit"
   },
   "keywords": [
     "phaser",

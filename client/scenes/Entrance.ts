@@ -1,13 +1,12 @@
 import io from "socket.io-client"
-import { API, Room } from "../../shared"
-import { apis } from "../apis"
 import { assets } from "../assets"
+import { Room } from "../helpers/Room"
 import { LobbyInit, LobbyKey } from "./Lobby"
 
 export const EntranceKey = "Entrance" as const
 
 export type EntranceInit = {
-  error?: boolean
+  error: boolean
   room?: Room
 }
 
@@ -29,7 +28,7 @@ export class Entrance extends Phaser.Scene {
 
     const { width, height } = this.sys.canvas
 
-    if (error != null && error) {
+    if (error) {
       this.add
         .text(width / 2, height / 2 - 200, "No se encontró la sala")
         .setOrigin(0.5, 0.5)
@@ -62,18 +61,34 @@ export class Entrance extends Phaser.Scene {
 
       if (inputName.value == null || inputName.value === "") return
 
-      const onSuccess = (result: API.Room.PostResponse) => {
-        this.scene.start(LobbyKey, {
-          room: result.room,
-          socket: this.socket,
-        } as LobbyInit)
-      }
-
       if (this.room != null) {
-        apis.room.put(this.room.id, this.socket.id, inputName.value, onSuccess)
+        this.room.joinRoom(this.socket.id, inputName.value).then(room => {
+          if (room == null) {
+            console.error(
+              "Por alguna extraña razón room está indefinido o es falso.",
+            )
+            return
+          }
+
+          this.goToLobby(room)
+        })
       } else {
-        apis.room.post(this.socket.id, inputName.value, onSuccess)
+        Room.createRoom(this.socket.id, inputName.value).then(room => {
+          if (room == null) {
+            console.error("Por alguna extraña razón room está indefinido.")
+            return
+          }
+
+          this.goToLobby(room)
+        })
       }
     })
+  }
+
+  goToLobby(room: Room) {
+    this.scene.start(LobbyKey, {
+      room,
+      socket: this.socket,
+    } as LobbyInit)
   }
 }

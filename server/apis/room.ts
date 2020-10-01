@@ -1,7 +1,7 @@
 import { Express } from "express"
-import { ACTIONS, API, Player, Room } from "../../shared"
+import { ACTIONS, API, Player, RoomInServer } from "../../shared"
 
-export const rooms: Record<string, Room> = {}
+export const rooms: Record<string, RoomInServer> = {}
 
 const PATH = `/api/room`
 
@@ -18,7 +18,7 @@ export function useRoomAPI(app: Express) {
     const admin = new Player(player.id, player.name)
     admin.setAdmin()
 
-    const room = new Room(admin)
+    const room = new RoomInServer(admin)
     rooms[room.id] = room
 
     console.log("Se creó una nueva sala:", room.id)

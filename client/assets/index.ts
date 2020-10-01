@@ -1,3 +1,7 @@
+export const assets = {
+  NAME_FORM: createAsset("NAME_FORM", "nameform.html"),
+} as const
+
 type ASSETS = "NAME_FORM"
 
 type Asset = {
@@ -11,7 +15,3 @@ function createAsset(key: ASSETS, filename: string): Asset {
     src: () => `${window.location.origin}/assets/${filename}`,
   }
 }
-
-export const assets = {
-  NAME_FORM: createAsset("NAME_FORM", "nameform.html"),
-} as const

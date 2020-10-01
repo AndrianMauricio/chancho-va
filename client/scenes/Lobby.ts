@@ -1,4 +1,5 @@
-import { Room, Socket } from "../../shared"
+import { Socket } from "../../shared"
+import { Room } from "../helpers/Room"
 
 export const LobbyKey = "Lobby" as const
 export type LobbyInit = {

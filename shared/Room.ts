@@ -1,7 +1,7 @@
 import { createID } from "../server/helpers"
 import { Player } from "./Player"
 
-export class Room {
+export class RoomInServer {
   id: string
   admin: string
   guests: string[]

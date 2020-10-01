@@ -1,8 +1,8 @@
 import { ACTIONS } from "../../constants"
-import { Room } from "../../Room"
+import { RoomInServer } from "../../Room"
 
 export type GetResponse = {
-  room?: Room
+  room?: RoomInServer
 }
 
 export type GetParams = { room: string }
@@ -23,9 +23,9 @@ export type PutRequest = {
 }
 
 export type PostResponse = {
-  room: Room
+  room: RoomInServer
 }
 
 export type PutResponse = {
-  room: Room
+  room: RoomInServer
 }
