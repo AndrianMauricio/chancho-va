@@ -1,6 +1,6 @@
 import io from "socket.io-client"
 import { assets } from "../assets"
-import { Room } from "../helpers/Room"
+import { Room } from "../entities/Room"
 import { LobbyInit, LobbyKey } from "./Lobby"
 import Phaser from "phaser"
 

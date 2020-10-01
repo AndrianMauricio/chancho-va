@@ -1,4 +1,4 @@
-import { Room } from "../helpers/Room"
+import { Room } from "../entities/Room"
 import { EntranceInit, EntranceKey } from "./Entrance"
 import Phaser from "phaser"
 

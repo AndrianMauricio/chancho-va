@@ -1,5 +1,5 @@
 import { Socket } from "../../shared"
-import { Room } from "../helpers/Room"
+import { Room } from "../entities/Room"
 import Phaser from "phaser"
 
 export const LobbyKey = "Lobby" as const
